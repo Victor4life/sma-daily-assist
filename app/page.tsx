@@ -24,7 +24,7 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <section className="flex-1 max-w-6xl mx-auto px-4 py-20 md:py-28 w-full">
+      <section className="flex-1 max-w-6xl mx-auto px-4 py-20 md:py-24 w-full">
         <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
           <div className="flex flex-col gap-8">
             <div className="flex flex-col gap-4">
