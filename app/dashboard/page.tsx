@@ -1,30 +1,38 @@
-// app/dashboard/page.tsx
-import { redirect } from "next/navigation";
-import { createClient } from "@/lib/supabase/server";
+"use client";
 
-export default async function DashboardPage() {
-  const supabase = await createClient();
-  const { data, error } = await supabase.auth.getUser();
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { createClient } from "@/lib/supabase/client";
 
-  if (error || !data?.user) {
-    redirect("/auth/login");
-  }
+export default function DashboardPage() {
+  const router = useRouter();
 
-  // Fetch role from profile
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("role")
-    .eq("id", data.user.id)
-    .single();
+  useEffect(() => {
+    const supabase = createClient();
 
-  // Redirect based on role
-  if (profile?.role === "caregiver") {
-    redirect("/dashboard/caregiver");
-  } else if (profile?.role === "patient") {
-    redirect("/dashboard/patient");
-  } else {
-    redirect("/auth/login"); // fallback if role missing
-  }
+    supabase.auth.getUser().then(({ data, error }) => {
+      if (error || !data?.user) {
+        router.push("/auth/login");
+        return;
+      }
 
-  return null; // redirect happens, so no UI needed
+      // Fetch role
+      supabase
+        .from("profiles")
+        .select("role")
+        .eq("id", data.user.id)
+        .single()
+        .then(({ data: profile }) => {
+          if (profile?.role === "caregiver") {
+            router.push("/dashboard/caregiver");
+          } else if (profile?.role === "patient") {
+            router.push("/dashboard/patient");
+          } else {
+            router.push("/auth/login");
+          }
+        });
+    });
+  }, [router]);
+
+  return <p>Loading...</p>;
 }

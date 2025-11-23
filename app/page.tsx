@@ -1,7 +1,15 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { CheckCircle2, Users, MessageSquare, Settings } from "lucide-react";
+import {
+  CheckCircle2,
+  Users,
+  MessageSquare,
+  Settings,
+  Heart,
+  Shield,
+  ArrowRight,
+} from "lucide-react";
 
 export default function Home() {
   return (
@@ -9,28 +17,40 @@ export default function Home() {
       {/* Navigation */}
       <nav className="border-b border-border">
         <div className="max-w-6xl mx-auto px-4 py-6 flex items-center justify-between">
-          <div className="text-2xl font-bold text-primary">
-            SMA Daily Assist
+          <div className="text-2xl font-bold text-primary flex items-center gap-3">
+            <img
+              src="/logo-sma.png"
+              alt=""
+              className="w-12 h-12 rounded-2xl bg-grey-100"
+            />
+            <p className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              SMA Assist
+            </p>
           </div>
           <div className="flex gap-4">
             <Link href="/auth/login">
               <Button variant="ghost">Log in</Button>
             </Link>
             <Link href="/auth/sign-up">
-              <Button>Sign up</Button>
+              <Button size="lg" className="rounded-full">
+                Sign up
+              </Button>
             </Link>
           </div>
         </div>
       </nav>
 
       {/* Hero Section */}
-      <section className="flex-1 max-w-6xl mx-auto px-4 py-20 md:py-24 w-full">
-        <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
-          <div className="flex flex-col gap-8">
+      <section className="flex-1 max-w-6xl mx-auto px-4 py-16 md:py-18 w-full">
+        <div className="relative grid md:grid-cols-2 gap-12 items-center mb-16 overflow-hidden">
+          <div className="flex flex-col gap-8 z-10">
             <div className="flex flex-col gap-4">
-              <h1 className="text-4xl md:text-5xl font-bold text-balance">
-                Simple support for SMA patients
-              </h1>
+              <h1 className="text-5xl md:text-6xl font-bold leading-tight tracking-tight">
+                Simple support for{" "}
+                <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                  SMA patients
+                </span>
+              </h1>{" "}
               <p className="text-lg text-muted-foreground max-w-lg">
                 Connect with your caregivers with one tap. Get help faster. Stay
                 independent. Designed for accessibility.
@@ -52,13 +72,71 @@ export default function Home() {
                 </Button>
               </Link>
             </div>
+            <div className="flex items-center gap-2 text-sm text-muted-foreground animate-fade-in-up-delay-2">
+              <div className="flex -space-x-2">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-primary-glow border-2 border-background" />
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-accent to-secondary border-2 border-background" />
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary-glow to-primary border-2 border-background" />
+              </div>
+              <span>Trusted by 5,000+ users across the globe</span>
+            </div>
           </div>
-          <div className="relative bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl h-96 flex items-center justify-center">
-            <div className="text-center">
-              <Users className="w-24 h-24 mx-auto text-primary/40 mb-4" />
-              <p className="text-muted-foreground">
-                Patient &amp; Caregiver Connection
-              </p>
+
+          {/* Right Column - Visual */}
+          <div className="relative z-10 animate-fade-in-up-delay-2">
+            <div className="relative">
+              {/* Decorative blobs */}
+              <div className="absolute -top-10 -right-10 w-72 h-72 bg-primary/20 rounded-full blur-3xl animate-float" />
+              <div
+                className="absolute -bottom-10 -left-10 w-96 h-96 bg-accent/20 rounded-full blur-3xl animate-float"
+                style={{ animationDelay: "3s" }}
+              />
+
+              {/* Main image container */}
+              <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-background backdrop-blur-sm">
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10 mix-blend-overlay" />
+                <img
+                  src="/image.png"
+                  alt="Diverse community of people supporting each other in a caring environment"
+                  className="w-full h-auto object-cover aspect-[4/3]"
+                />
+
+                {/* Floating stat cards */}
+                <div className="absolute top-8 left-8 bg-background/95 backdrop-blur-md rounded-2xl p-4 shadow-elegant border border-border animate-float">
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 rounded-full gradient-primary flex items-center justify-center">
+                      <Users className="w-6 h-6 text-white" />
+                    </div>
+                    <div>
+                      <div className="text-xl font-bold text-foreground">
+                        24/7
+                      </div>
+                      <div className="text-xs text-muted-foreground">
+                        Always Available
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  className="absolute bottom-8 right-8 bg-background/95 backdrop-blur-md rounded-2xl p-4 shadow-elegant border border-border animate-float"
+                  style={{ animationDelay: "2s" }}
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 rounded-full gradient-accent flex items-center justify-center">
+                      <Heart className="w-6 h-6 text-white" />
+                    </div>
+                    <div>
+                      <div className="text-xl font-bold text-foreground">
+                        98%
+                      </div>
+                      <div className="text-xs text-muted-foreground">
+                        Satisfaction Rate
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -66,7 +144,10 @@ export default function Home() {
         {/* Features Section */}
         <section className="py-16 md:py-24">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
-            Everything you need
+            Everything you{" "}
+            <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              need{" "}
+            </span>
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             <Card>
