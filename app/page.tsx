@@ -23,7 +23,7 @@ export default function Home() {
               alt=""
               className="w-12 h-12 rounded-2xl bg-grey-100"
             />
-            <p className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+            <p className="hidden md:block">
               SMA Assist
             </p>
           </div>
@@ -46,10 +46,7 @@ export default function Home() {
           <div className="flex flex-col gap-8 z-10">
             <div className="flex flex-col gap-4">
               <h1 className="text-5xl md:text-6xl font-bold leading-tight tracking-tight">
-                Simple support for{" "}
-                <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                  SMA patients
-                </span>
+                Simple support for <span className="">SMA patients</span>
               </h1>{" "}
               <p className="text-lg text-muted-foreground max-w-lg">
                 Connect with your caregivers with one tap. Get help faster. Stay
@@ -83,13 +80,13 @@ export default function Home() {
           </div>
 
           {/* Right Column - Visual */}
-          <div className="relative z-10 animate-fade-in-up-delay-2">
+          <div className="relative z-10 animate-fade-in-up-delay-2 hidden md:block">
             <div className="relative">
               {/* Main image container */}
               <div className="relative rounded-3xl overflow-hidden border-4 border-background">
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10 mix-blend-overlay" />
                 <img
-                  src="/image.png"
+                  src="/image.jpg"
                   alt="Diverse community of people supporting each other in a caring environment"
                   className="w-full h-auto object-cover aspect-[4/3]"
                 />
@@ -138,9 +135,7 @@ export default function Home() {
         <section className="py-16 md:py-24">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
             Everything you{" "}
-            <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              need{" "}
-            </span>
+              need
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             <Card>
