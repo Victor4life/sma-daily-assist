@@ -1,6 +1,5 @@
 "use client";
 
-import type React from "react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -42,22 +41,17 @@ export default function SignUpPage() {
     try {
       const supabase = createClient();
 
-      // Sign up the user in Supabase Auth
+      // 1️⃣ Sign up user
       const { data: authData, error: signUpError } = await supabase.auth.signUp(
         {
           email,
           password,
-          options: {
-            emailRedirectTo:
-              process.env.NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL ||
-              `${window.location.origin}/dashboard`,
-          },
         }
       );
       if (signUpError) throw signUpError;
       if (!authData.user) throw new Error("Failed to create user");
 
-      // Insert profile into 'profiles' table
+      // 2️⃣ Insert profile
       const { error: profileError } = await supabase.from("profiles").insert([
         {
           id: authData.user.id,
@@ -67,7 +61,7 @@ export default function SignUpPage() {
       ]);
       if (profileError) throw profileError;
 
-      // Redirect to signup success page
+      // 3️⃣ Redirect
       router.push("/auth/sign-up-success");
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "An error occurred");
@@ -86,86 +80,56 @@ export default function SignUpPage() {
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSignUp} className="flex flex-col gap-6">
-              <div className="grid gap-2">
-                <Label htmlFor="fullName">Full Name</Label>
-                <Input
-                  id="fullName"
-                  type="text"
-                  placeholder="John Doe"
-                  required
-                  value={fullName}
-                  onChange={(e) => setFullName(e.target.value)}
-                />
-              </div>
-
-              <div className="grid gap-2">
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="your@email.com"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
-
-              <div className="grid gap-2">
-                <Label>I am a:</Label>
-                <RadioGroup
-                  value={role}
-                  onValueChange={(value) =>
-                    setRole(value as "patient" | "caregiver")
-                  }
-                >
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="patient" id="patient" />
-                    <Label htmlFor="patient">Patient</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="caregiver" id="caregiver" />
-                    <Label htmlFor="caregiver">Caregiver</Label>
-                  </div>
-                </RadioGroup>
-              </div>
-
-              <div className="grid gap-2">
-                <Label htmlFor="password">Password</Label>
-                <Input
-                  id="password"
-                  type="password"
-                  required
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </div>
-
-              <div className="grid gap-2">
-                <Label htmlFor="repeatPassword">Repeat Password</Label>
-                <Input
-                  id="repeatPassword"
-                  type="password"
-                  required
-                  value={repeatPassword}
-                  onChange={(e) => setRepeatPassword(e.target.value)}
-                />
-              </div>
-
-              {error && <p className="text-sm text-destructive">{error}</p>}
-
-              <Button type="submit" className="w-full" disabled={isLoading}>
-                {isLoading ? "Creating account..." : "Sign up"}
+              <Input
+                placeholder="Full Name"
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+                required
+              />
+              <Input
+                placeholder="Email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+              <RadioGroup
+                value={role}
+                onValueChange={(value) =>
+                  setRole(value as "patient" | "caregiver")
+                }
+              >
+                <div className="flex items-center gap-2">
+                  <RadioGroupItem value="patient" id="patient" />
+                  <Label htmlFor="patient">Patient</Label>
+                  <RadioGroupItem value="caregiver" id="caregiver" />
+                  <Label htmlFor="caregiver">Caregiver</Label>
+                </div>
+              </RadioGroup>
+              <Input
+                placeholder="Password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+              <Input
+                placeholder="Repeat Password"
+                type="password"
+                value={repeatPassword}
+                onChange={(e) => setRepeatPassword(e.target.value)}
+                required
+              />
+              {error && <p className="text-destructive">{error}</p>}
+              <Button type="submit" disabled={isLoading}>
+                {isLoading ? "Creating..." : "Sign Up"}
               </Button>
-
-              <div className="mt-4 text-center text-sm">
-                Already have an account?{" "}
-                <Link
-                  href="/auth/login"
-                  className="underline underline-offset-4"
-                >
-                  Login
-                </Link>
-              </div>
+              <Link
+                href="/auth/login"
+                className="underline text-sm text-center"
+              >
+                Already have an account? Login
+              </Link>
             </form>
           </CardContent>
         </Card>
