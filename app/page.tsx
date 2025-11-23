@@ -85,15 +85,8 @@ export default function Home() {
           {/* Right Column - Visual */}
           <div className="relative z-10 animate-fade-in-up-delay-2">
             <div className="relative">
-              {/* Decorative blobs */}
-              <div className="absolute -top-10 -right-10 w-72 h-72 bg-primary/20 rounded-full blur-3xl animate-float" />
-              <div
-                className="absolute -bottom-10 -left-10 w-96 h-96 bg-accent/20 rounded-full blur-3xl animate-float"
-                style={{ animationDelay: "3s" }}
-              />
-
               {/* Main image container */}
-              <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-background backdrop-blur-sm">
+              <div className="relative rounded-3xl overflow-hidden border-4 border-background">
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10 mix-blend-overlay" />
                 <img
                   src="/image.png"
